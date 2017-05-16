@@ -6,16 +6,24 @@ namespace CGaG.Lab08 {
     public class MainThread : Game {
         GraphicsDeviceManager Graphics;
         SpriteBatch SpriteBatch;
-        Color BackgroundColor = new Color(30, 30, 30);
+        Color BackgroundColor = Color.Black;
+        Effect DiffusionSphereShapder;
+        Texture2D ShaderTexture;
 
         public MainThread( ) {
             Graphics = new GraphicsDeviceManager(this);
+            Graphics.PreferredBackBufferWidth = 640;
+            Graphics.PreferredBackBufferHeight = 640;
             Content.RootDirectory = "Content";
             this.IsMouseVisible = true;
         }
 
         protected override void Initialize( ) {
             // TODO: initialization logic
+            ShaderTexture = new Texture2D(GraphicsDevice, 2, 2);
+            ShaderTexture.SetData(new Color[ ] {
+                Color.White, Color.White, Color.White, Color.White
+            });
 
             base.Initialize( );
         }
@@ -25,6 +33,7 @@ namespace CGaG.Lab08 {
             SpriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: load content
+            DiffusionSphereShapder = Content.Load<Effect>("GLSLDiffusionSphere");
         }
 
         protected override void UnloadContent( ) {
@@ -45,6 +54,9 @@ namespace CGaG.Lab08 {
             GraphicsDevice.Clear(BackgroundColor);
 
             // TODO: drawing code
+            SpriteBatch.Begin(effect: DiffusionSphereShapder);
+            SpriteBatch.Draw(ShaderTexture, new Rectangle(64, 64, 512, 512), Color.White);
+            SpriteBatch.End( );
 
             base.Draw(time);
         }
