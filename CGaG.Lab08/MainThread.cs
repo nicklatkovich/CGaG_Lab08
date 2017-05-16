@@ -11,6 +11,7 @@ namespace CGaG.Lab08 {
         Effect DiffusionSphereShapder;
         Texture2D ShaderTexture;
         Vector2 SphereLightDirection = new Vector2(0, 0);
+        KeyboardState Keyboard;
 
         public MainThread( ) {
             Graphics = new GraphicsDeviceManager(this);
@@ -43,13 +44,26 @@ namespace CGaG.Lab08 {
         }
 
         protected override void Update(GameTime time) {
-            if (Keyboard.GetState( ).IsKeyDown(Keys.Escape)) {
+            Keyboard = SimpleUtils.GetKeyboardState( );
+            if (Keyboard.IsKeyDown(Keys.Escape)) {
                 Exit( );
             }
 
             // TODO: update logic
-            SphereLightDirection.X++;
-            Vector3 vector_to_light = SimpleUtils.SphereToCart(new Vector3(1f, SphereLightDirection.X, SphereLightDirection.Y));
+
+            if (Keyboard.IsKeyDown(Keys.Left)) {
+                SphereLightDirection.X--;
+            }
+            if (Keyboard.IsKeyDown(Keys.Right)) {
+                SphereLightDirection.X++;
+            }
+            if (Keyboard.IsKeyDown(Keys.Up)) {
+                SphereLightDirection.Y--;
+            }
+            if (Keyboard.IsKeyDown(Keys.Down)) {
+                SphereLightDirection.Y++;
+            }
+            Vector3 vector_to_light = Lab07.SimpleUtils.SphereToCart(new Vector3(1f, SphereLightDirection.X, SphereLightDirection.Y));
             DiffusionSphereShapder.Parameters["VectorToLight"].SetValue(vector_to_light);
             DiffusionSphereShapder.Parameters["VectorToLightLength"].SetValue(vector_to_light.Length( ));
 
