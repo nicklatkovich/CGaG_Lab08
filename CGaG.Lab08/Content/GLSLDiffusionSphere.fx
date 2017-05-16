@@ -12,6 +12,7 @@ Texture2D SpriteTexture;
 
 uniform float3 VectorToLight;
 uniform float VectorToLightLength;
+uniform float4 LightColor;
 
 sampler2D SpriteTextureSampler = sampler_state {
 	Texture = <SpriteTexture>;
@@ -32,7 +33,7 @@ float4 MainPS(VertexShaderOutput input) : COLOR {
 		float3 normal = float3(dx, dy, -dz);
 		float angle = abs(acos(dot(normal, VectorToLight) / (0.5f * VectorToLightLength)));
 		float light = -2.0f / M_PI * angle + 1.0f;
-		return float4(light, light, light, 1.0f);
+		return float4(light, light, light, 1.0f) * LightColor;
 	}
 	else {
 		return float4(0, 0, 0, 0);

@@ -12,6 +12,7 @@ namespace CGaG.Lab08 {
         Texture2D ShaderTexture;
         Vector2 SphereLightDirection = new Vector2(0, 0);
         KeyboardState Keyboard;
+        Color LightColor = Color.White;
 
         public MainThread( ) {
             Graphics = new GraphicsDeviceManager(this);
@@ -50,7 +51,6 @@ namespace CGaG.Lab08 {
             }
 
             // TODO: update logic
-
             if (Keyboard.IsKeyDown(Keys.Left)) {
                 SphereLightDirection.X--;
             }
@@ -66,6 +66,7 @@ namespace CGaG.Lab08 {
             Vector3 vector_to_light = Lab07.SimpleUtils.SphereToCart(new Vector3(1f, SphereLightDirection.X, SphereLightDirection.Y));
             DiffusionSphereShapder.Parameters["VectorToLight"].SetValue(vector_to_light);
             DiffusionSphereShapder.Parameters["VectorToLightLength"].SetValue(vector_to_light.Length( ));
+            DiffusionSphereShapder.Parameters["LightColor"].SetValue(new Vector4(LightColor.R / 256f, LightColor.G / 256f, LightColor.B / 256f, LightColor.A / 256f));
 
             base.Update(time);
         }
