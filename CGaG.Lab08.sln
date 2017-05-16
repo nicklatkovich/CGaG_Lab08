@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CGaG.Lab08", "CGaG.Lab08\CGaG.Lab08.csproj", "{9330795B-E2D8-4AFA-8C58-2A72AA0F4F9E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CGaG.Lab07", "Libs\CGaG_Lab07\CGaG.Lab07\CGaG.Lab07.csproj", "{586106CC-206E-4FFF-81AF-C4B0A2FCAE90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -15,6 +17,10 @@ Global
 		{9330795B-E2D8-4AFA-8C58-2A72AA0F4F9E}.Debug|x86.Build.0 = Debug|x86
 		{9330795B-E2D8-4AFA-8C58-2A72AA0F4F9E}.Release|x86.ActiveCfg = Release|x86
 		{9330795B-E2D8-4AFA-8C58-2A72AA0F4F9E}.Release|x86.Build.0 = Release|x86
+		{586106CC-206E-4FFF-81AF-C4B0A2FCAE90}.Debug|x86.ActiveCfg = Debug|x86
+		{586106CC-206E-4FFF-81AF-C4B0A2FCAE90}.Debug|x86.Build.0 = Debug|x86
+		{586106CC-206E-4FFF-81AF-C4B0A2FCAE90}.Release|x86.ActiveCfg = Release|x86
+		{586106CC-206E-4FFF-81AF-C4B0A2FCAE90}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
