@@ -11,7 +11,8 @@ namespace CGaG.Lab08 {
         Color BackgroundColor = new Color(30, 30, 30);
         Effect DiffusionSphereShapder;
         Texture2D ShaderTexture;
-        Vector2 SphereLightDirection = new Vector2(-90, 0);
+        Vector3 SphereLightPosition = new Vector3(5, 30, -15);
+        float angleX = 30f;
         KeyboardState Keyboard;
         Color LightColor = Color.White;
 
@@ -61,20 +62,27 @@ namespace CGaG.Lab08 {
 
             // TODO: update logic
             if (Keyboard.IsKeyDown(Keys.Left)) {
-                SphereLightDirection.X--;
+                SphereLightPosition.Y--;
             }
             if (Keyboard.IsKeyDown(Keys.Right)) {
-                SphereLightDirection.X++;
+                SphereLightPosition.Y++;
             }
             if (Keyboard.IsKeyDown(Keys.Up)) {
-                SphereLightDirection.Y--;
+                SphereLightPosition.Z--;
             }
             if (Keyboard.IsKeyDown(Keys.Down)) {
-                SphereLightDirection.Y++;
+                SphereLightPosition.Z++;
             }
-            Vector3 vector_to_light = Lab07.SimpleUtils.SphereToCart(new Vector3(1f, SphereLightDirection.X, SphereLightDirection.Y));
+            if (Keyboard.IsKeyDown(Keys.W)) {
+                angleX++;
+            }
+            if (Keyboard.IsKeyDown(Keys.S)) {
+                angleX--;
+            }
+            Lab07.SimpleUtils.Median(ref angleX, 0, 90);
+            SphereLightPosition.X = 10f - (10f - 1.1f) * (float) Math.Cos(MathHelper.ToRadians(angleX));
+            Vector3 vector_to_light = Lab07.SimpleUtils.SphereToCart(SphereLightPosition);
             DiffusionSphereShapder.Parameters["VectorToLight"].SetValue(vector_to_light);
-            DiffusionSphereShapder.Parameters["VectorToLightLength"].SetValue(vector_to_light.Length( ));
             DiffusionSphereShapder.Parameters["LightColor"].SetValue(new Vector4(LightColor.R / 256f, LightColor.G / 256f, LightColor.B / 256f, LightColor.A / 256f));
 
             base.Update(time);

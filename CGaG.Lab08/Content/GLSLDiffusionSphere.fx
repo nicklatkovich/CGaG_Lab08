@@ -11,7 +11,6 @@
 Texture2D SpriteTexture;
 
 uniform float3 VectorToLight;
-uniform float VectorToLightLength;
 uniform float4 LightColor;
 
 sampler2D SpriteTextureSampler = sampler_state {
@@ -30,8 +29,8 @@ float4 MainPS(VertexShaderOutput input) : COLOR {
 	float dist = sqrt(dx * dx + dy * dy);
 	if (dist < 0.5f) {
 		float dz = sqrt(0.25f - dist * dist);
-		float3 light = normalize(VectorToLight);
-		float3 normal = float3(dx, dy, -dz) * 2.0f;
+		float3 normal = normalize(float3(dx, dy, -dz));
+		float3 light = normalize(VectorToLight - normal);
 		float diffuse = max(dot(normal, light), 0.0f);
 		float3 r = normalize(2.0f * dot(light, normal) * normal - light);
 		float3 v = float3(0, 0, -1);
