@@ -30,10 +30,14 @@ float4 MainPS(VertexShaderOutput input) : COLOR {
 	float dist = sqrt(dx * dx + dy * dy);
 	if (dist < 0.5f) {
 		float dz = sqrt(0.25f - dist * dist);
-		float3 normal = float3(dx, dy, -dz);
-		float angle = abs(acos(dot(normal, VectorToLight) / (0.5f * VectorToLightLength)));
-		float light = -2.0f / M_PI * angle + 1.0f;
-		return float4(light, light, light, 1.0f) * LightColor;
+		float3 light = normalize(VectorToLight);
+		float3 normal = float3(dx, dy, -dz) * 2.0f;
+		float diffuse = max(dot(normal, light), 0.0f);
+		float3 r = normalize(2.0f * dot(light, normal) * normal - light);
+		float3 v = float3(0, 0, -1);
+		float specular = max(pow(max(0, dot(r, v)), 32), 0);
+		float intensiv = max(specular, diffuse);
+		return float4(intensiv, intensiv, intensiv, 1.0f) * LightColor;
 	}
 	else {
 		return float4(0, 0, 0, 0);
