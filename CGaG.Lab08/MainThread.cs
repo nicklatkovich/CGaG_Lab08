@@ -46,6 +46,9 @@ namespace CGaG.Lab08 {
             }
 
             // TODO: update logic
+            Vector3 VectorToLight = new Vector3((float)time.TotalGameTime.TotalSeconds, 0, 0);
+            DiffusionSphereShapder.Parameters["VectorToLight"].SetValue(VectorToLight);
+            DiffusionSphereShapder.Parameters["VectorToLightLength"].SetValue(VectorToLight.Length( ));
 
             base.Update(time);
         }

@@ -1,4 +1,5 @@
-﻿#if OPENGL
+﻿#define M_PI 3.1415926535897932384626433832795
+#if OPENGL
 	#define SV_POSITION POSITION
 	#define VS_SHADERMODEL vs_3_0
 	#define PS_SHADERMODEL ps_3_0
@@ -8,6 +9,9 @@
 #endif
 
 Texture2D SpriteTexture;
+
+uniform float3 VectorToLight;
+uniform float VectorToLightLength;
 
 sampler2D SpriteTextureSampler = sampler_state {
 	Texture = <SpriteTexture>;
@@ -24,8 +28,11 @@ float4 MainPS(VertexShaderOutput input) : COLOR {
 	float dy = input.TextureCoordinates.y - 0.5f;
 	float dist = sqrt(dx * dx + dy * dy);
 	if (dist < 0.5f) {
-		float pre_dist = 1 - dist * 2.0f;
-		return float4(pre_dist, pre_dist, pre_dist, 1);
+		float dz = sqrt(0.25f - dist * dist);
+		float3 normal = float3(dx, dz, -dy);
+		float angle = abs(acos(dot(normal, VectorToLight) / (0.5f * VectorToLightLength)));
+		float light = -2.0f / M_PI * angle + 1.0f;
+		return float4(light, light, light, 1.0f);
 	}
 	else {
 		return float4(0, 0, 0, 0);
