@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using CGaG.Lab07;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -9,6 +10,7 @@ namespace CGaG.Lab08 {
         Color BackgroundColor = Color.Black;
         Effect DiffusionSphereShapder;
         Texture2D ShaderTexture;
+        Vector2 SphereLightDirection = new Vector2(0, 0);
 
         public MainThread( ) {
             Graphics = new GraphicsDeviceManager(this);
@@ -46,9 +48,10 @@ namespace CGaG.Lab08 {
             }
 
             // TODO: update logic
-            Vector3 VectorToLight = new Vector3((float)time.TotalGameTime.TotalSeconds, 0, 0);
-            DiffusionSphereShapder.Parameters["VectorToLight"].SetValue(VectorToLight);
-            DiffusionSphereShapder.Parameters["VectorToLightLength"].SetValue(VectorToLight.Length( ));
+            SphereLightDirection.X++;
+            Vector3 vector_to_light = SimpleUtils.SphereToCart(new Vector3(1f, SphereLightDirection.X, SphereLightDirection.Y));
+            DiffusionSphereShapder.Parameters["VectorToLight"].SetValue(vector_to_light);
+            DiffusionSphereShapder.Parameters["VectorToLightLength"].SetValue(vector_to_light.Length( ));
 
             base.Update(time);
         }

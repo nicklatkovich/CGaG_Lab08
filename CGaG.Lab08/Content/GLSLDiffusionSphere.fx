@@ -29,7 +29,7 @@ float4 MainPS(VertexShaderOutput input) : COLOR {
 	float dist = sqrt(dx * dx + dy * dy);
 	if (dist < 0.5f) {
 		float dz = sqrt(0.25f - dist * dist);
-		float3 normal = float3(dx, dz, -dy);
+		float3 normal = float3(dx, dy, -dz);
 		float angle = abs(acos(dot(normal, VectorToLight) / (0.5f * VectorToLightLength)));
 		float light = -2.0f / M_PI * angle + 1.0f;
 		return float4(light, light, light, 1.0f);
