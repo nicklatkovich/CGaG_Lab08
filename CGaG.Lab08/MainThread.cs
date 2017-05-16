@@ -7,7 +7,7 @@ namespace CGaG.Lab08 {
     public class MainThread : Game {
         GraphicsDeviceManager Graphics;
         SpriteBatch SpriteBatch;
-        Color BackgroundColor = Color.Black;
+        Color BackgroundColor = new Color(30, 30, 30);
         Effect DiffusionSphereShapder;
         Texture2D ShaderTexture;
         Vector2 SphereLightDirection = new Vector2(0, 0);
