@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace CGaG.Lab08 {
     public class MainThread : Game {
@@ -10,7 +11,7 @@ namespace CGaG.Lab08 {
         Color BackgroundColor = new Color(30, 30, 30);
         Effect DiffusionSphereShapder;
         Texture2D ShaderTexture;
-        Vector2 SphereLightDirection = new Vector2(0, 0);
+        Vector2 SphereLightDirection = new Vector2(-90, 0);
         KeyboardState Keyboard;
         Color LightColor = Color.White;
 
@@ -18,8 +19,16 @@ namespace CGaG.Lab08 {
             Graphics = new GraphicsDeviceManager(this);
             Graphics.PreferredBackBufferWidth = 640;
             Graphics.PreferredBackBufferHeight = 640;
+            Window.AllowUserResizing = true;
+            Window.ClientSizeChanged += Window_ClientSizeChanged;
             Content.RootDirectory = "Content";
             this.IsMouseVisible = true;
+        }
+
+        private void Window_ClientSizeChanged(Object sender, EventArgs e) {
+            Graphics.PreferredBackBufferWidth = Window.ClientBounds.Width;
+            Graphics.PreferredBackBufferHeight = Window.ClientBounds.Height;
+            Graphics.ApplyChanges( );
         }
 
         protected override void Initialize( ) {
@@ -76,7 +85,8 @@ namespace CGaG.Lab08 {
 
             // TODO: drawing code
             SpriteBatch.Begin(effect: DiffusionSphereShapder);
-            SpriteBatch.Draw(ShaderTexture, new Rectangle(64, 64, 512, 512), Color.White);
+            int SphereRadius = Math.Min(Window.ClientBounds.Width, Window.ClientBounds.Height) - 128;
+            SpriteBatch.Draw(ShaderTexture, new Rectangle(64, 64, SphereRadius, SphereRadius), Color.White);
             SpriteBatch.End( );
 
             base.Draw(time);
